@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kon Banega Crorepati </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #000428, #004e92);
+      color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      padding: 20px;
+      font-size: 2.5em;
+      background: linear-gradient(to right, #ffd700, #ffbb00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .question-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid #ffffff33;
+      padding: 30px;
+      border-radius: 12px;
+      margin: 30px auto;
+      max-width: 700px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .question-box h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: #ffd700;
+      border: none;
+      padding: 12px 20px;
+      color: #000;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .option-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #ffd700aa;
+    }
+
+    .prize {
+      font-size: 1.2em;
+      margin: 10px 0;
+      color: #00ffcc;
+    }
+
+    .quit-btn {
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .quit-btn:hover {
+      box-shadow: 0 0 10px #ff416caa;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kon Banega Crorepati 💰</h1>
+
+  <div class="question-box" id="gameBox">
+    <h2 id="question">Loading question...</h2>
+    <div class="options" id="optionsContainer"></div>
+    <div class="prize" id="prizeDisplay"></div>
+    <button onclick="quitGame()" class="quit-btn">Quit Game</button>
+  </div>
+  <script>
+    const questions = [
+      {
+        "question": "What is the capital of India?",
+        "options": {
+            "A": "Mumbai",
+            "B": "Delhi",
+            "C": "Kolkata",
+            "D": "Chennai"
+        },
+        "answer": "B",
+        "prize": 1000
+    },
+    {
+        "question": "What is the largest planet in our solar system?",
+        "options": {
+            "A": "Earth",
+            "B": "Mars",
+            "C": "Jupiter",
+            "D": "Saturn"
+        },
+        "answer": "C",
+        "prize": 2000
+    },
+    {
+        "question": "Who wrote 'Romeo and Juliet'?",
+        "options": {
+            "A": "Charles Dickens",
+            "B": "Mark Twain",
+            "C": "William Shakespeare",
+            "D": "Jane Austen"
+        },
+        "answer": "C",
+        "prize": 3000
+    },
+    {
+        "question": "What is the chemical symbol for water?",
+        "options": {
+            "A": "CO2",
+            "B": "H2O",
+            "C": "O2",
+            "D": "NaCl"
+        },
+        "answer": "B",
+        "prize": 4000
+    },
+    {
+        "question": "What is the hardest natural substance on Earth?",
+        "options": {
+            "A": "Gold",
+            "B": "Diamond",
+            "C": "Iron",
+            "D": "Platinum"
+        },
+        "answer": "B",
+        "prize": 5000
+    },
+    {        "question": "What is the largest mammal?",
+        "options": {
+            "A": "Elephant",
+            "B": "Blue Whale",
+            "C": "Giraffe",
+            "D": "Great White Shark"
+        },
+        "answer": "B",
+        "prize": 6000   
+    },
+    {
+        "question": "What is the main ingredient in guacamole?",
+        "options": {
+            "A": "Tomato",
+            "B": "Avocado",
+            "C": "Onion",
+            "D": "Pepper"
+        },
+        "answer": "B",
+        "prize": 7000
+    },
+    {
+        "question": "What is the capital of France?",
+        "options": {
+            "A": "Berlin",
+            "B": "Madrid",
+            "C": "Paris",
+            "D": "Rome"
+        },
+        "answer": "C",
+        "prize": 8000
+    },
+    {
+        "question": "What is the largest ocean on Earth?",
+        "options": {
+            "A": "Atlantic Ocean",
+            "B": "Indian Ocean",
+            "C": "Arctic Ocean",
+            "D": "Pacific Ocean"
+        },
+        "answer": "D",
+        "prize": 9000
+    },
+    {
+        "question": "Who painted the Mona Lisa?",
+        "options": {
+            "A": "Vincent van Gogh",
+            "B": "Pablo Picasso",
+            "C": "Leonardo da Vinci",
+            "D": "Claude Monet"
+        },
+        "answer": "C",
+        "prize": 10000
+    },
+    {
+        "question": "What is the smallest country in the world?",
+        "options": {
+            "A": "Monaco",
+            "B": "Vatican City",
+            "C": "San Marino",
+            "D": "Liechtenstein"
+        },
+        "answer": "B",
+        "prize": 20000
+    
+    },
+    {        "question": "What is the main language spoken in Brazil?",
+        "options": {
+            "A": "Spanish",
+            "B": "Portuguese",
+            "C": "English",
+            "D": "French"
+        },
+        "answer": "B",
+        "prize": 30000
+    },
+    {        "question": "What is the largest desert in the world?",
+        "options": {
+            "A": "Sahara Desert",
+            "B": "Arabian Desert",
+            "C": "Gobi Desert",
+            "D": "Kalahari Desert"
+        },
+        "answer": "A",
+        "prize": 50000
+    },
+    {        "question": "What is the currency of Japan?",
+        "options": {
+            "A": "Yen",
+            "B": "Won",
+            "C": "Dollar",
+            "D": "Euro"
+        },
+        "answer": "A",
+        "prize": 100000
+    },
+    {        "question": "What is the largest continent by land area?",
+        "options": {
+            "A": "Africa",
+            "B": "Asia",
+            "C": "North America",
+            "D": "South America"
+        },
+        "answer": "B",
+        "prize": 200000
+    }
+    ];
+
+    let currentIndex = 0;
+    let totalPrize = 0;
+
+    function loadQuestion(index) {
+      const q = questions[index];
+      document.getElementById("question").textContent = `Q${index + 1}: ${q.question}`;
+      const container = document.getElementById("optionsContainer");
+      container.innerHTML = "";
+
+      for (let key in q.options) {
+        const btn = document.createElement("button");
+        btn.textContent = `${key}: ${q.options[key]}`;
+        btn.className = "option-btn";
+        btn.onclick = () => checkAnswer(key);
+        container.appendChild(btn);
+      }
+
+      document.getElementById("prizeDisplay").textContent = `Prize for this question: ₹${q.prize}`;
+    }
+
+    function checkAnswer(selected) {
+      const correct = questions[currentIndex].answer;
+      if (selected === correct) {
+        totalPrize += questions[currentIndex].prize;
+        alert(`✅ Correct! Total Prize: ₹${totalPrize}`);
+        currentIndex++;
+        if (currentIndex < questions.length) {
+          loadQuestion(currentIndex);
+        } else {
+          alert(`🎉 You've won ₹${totalPrize}! You're a Crorepati!`);
+        }
+      } else {
+        alert(`❌ Wrong answer! The correct answer was '${correct}'. You won ₹${totalPrize}.`);
+        disableGame();
+      }
+    }
+
+    function quitGame() {
+      alert(`You quit the game with ₹${totalPrize}.`);
+      disableGame();
+    }
+
+    function disableGame() {
+      document.getElementById("gameBox").innerHTML = `<h2>Game Over</h2><p>You earned ₹${totalPrize}. Refresh to play again!</p>`;
+    }
+
+    loadQuestion(currentIndex);
+  </script>
+
+</body>
+</html>
