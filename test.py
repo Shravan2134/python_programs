@@ -16,11 +16,19 @@ for key in quiz_results:
 first_score = quiz_results[players[0]]["score"]
 
 for player in players:
-    if quiz_results[player]["score"] < first_score:
-        first_score = quiz_results[player]["score"]
-        first_time = quiz_results[player]["time"]
-        quiz_results.pop(player, None) 
-sorted_players[player] = {"score": first_score, "time": first_time}        
+    for key, value in quiz_results[player].items():
+        if key == "score":
+            if value < first_score:
+                first_score = value
+                first_time = quiz_results[player]["time"]
+                sorted_players[player] = {"score": first_score, "time": first_time}
+                quiz_results.pop(player)               
+print(sorted_players)
+    
+#     if quiz_results[player]["score"] < first_score:
+#         first_score = quiz_results[player]["score"]
+#         first_time = quiz_results[player]["time"]
+# sorted_players[player] = {"score": first_score, "time": first_time}        
     
 
 
