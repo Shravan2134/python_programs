@@ -48,5 +48,5 @@ def Secret_Decoding(str):
 
 
 print(Secret_Coding("Hi Shravan How Are You"))
-print(Secret_Decoding("iH gfnhravanSuch gfnowHuch gfnreAuch gfnouYuch"))
+print(Secret_Decoding("iH juyhravanSwfl juyowHwfl juyreAwfl juyouYwfl"))
        
